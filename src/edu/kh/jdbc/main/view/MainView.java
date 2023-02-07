@@ -3,7 +3,9 @@ package edu.kh.jdbc.main.view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import edu.kh.jdbc.board.view.BoardView;
 import edu.kh.jdbc.main.model.service.MainService;
+import edu.kh.jdbc.member.view.MemberView;
 import edu.kh.jdbc.member.vo.Member;
 
 public class MainView {
@@ -15,6 +17,14 @@ public class MainView {
 	private static Member LoginMember = null;
 	// 로그인 안했으면 null
 	// 로그인 했으면 null이 아님 
+	
+	
+	// 회원 기능 메뉴 객체 생성
+	private MemberView memberView = new MemberView();
+	// 게시판 기능 메뉴 객체 생성
+	private BoardView boardView = new BoardView();
+	
+	
 	
 	
 	/** 
@@ -52,6 +62,30 @@ public class MainView {
 			}
 			
 			}else {
+				System.out.println("****회원 메뉴*****");
+				System.out.println("1. 회원 기능");
+				System.out.println("2. 게시판 기능");
+				System.out.println("0. 로그아웃");
+				System.out.println("99. 프로그램 종료");
+				
+				System.out.print("\n 메뉴 선택 : ");
+				input = sc.nextInt();
+				
+				System.out.println();
+				
+				switch(input) {
+				case 1 : memberView.memberMenu(LoginMember); break; // 회원기능 서브 메뉴 출력
+				case 2 : boardView.boardMenu(LoginMember); break; // 게시판 기능 서브 메뉴 출력
+				case 0 : 
+					LoginMember = null; // 로그아웃 == LoginMember가 참조하는 객체 없음(== null)
+					System.out.println("로그아웃됨");
+					input = -1; break;// do while문이 종료되지 않도록 0이 아닌값으로변경
+				case 99 : System.out.println("프로그램 종료"); 
+				System.exit(0); break; // jvm종료, 매개변수는 0 아니면 오류를 의미
+				default : System.out.println("잘못 입력된 번호"); 
+				}
+				
+				System.out.println();
 				
 			}
 			
@@ -229,6 +263,44 @@ public class MainView {
 		
 	}
 
+	/* 회원기능 (Member View, Service, DAO, member-query.xml)
+	 * 
+	 * 1. 내 정보 조회
+	 * 2. 회원 목록 조회(아이디, 이름, 성별)
+	 * 3. 내 정보 수정(이름, 성별)
+	 * 4. 비밀번호 변경(현재 비밀번호, 새 비밀번호, 새 비밀번호 확인)
+	 * 5. 회원 탈퇴
+	 * 
+	 * ------------------------------------------------------------------
+	 * 
+	 * 게시판 기능 (Board View, Service, DAO, board-query.xml)
+	 * 
+	 * 1. 게시글 목록 조회(작성일 내림차순)
+	 * 	  (게시글 번호, 제목[댓글 수], 작성자명, 작성일, 조회수 )
+	 * 
+	 * 2. 게시글 상세 조회(게시글 번호 입력 받음)
+	 *    (게시글 번호, 제목, 내용, 작성자명, 작성일, 조회수, 
+	 *     댓글 목록(작성일 오름차순 )
+	 *     
+	 *     2-1. 댓글 작성
+	 *     2-2. 댓글 수정 (자신의 댓글만)
+	 *     2-3. 댓글 삭제 (자신의 댓글만)
+	 * 
+	 *     // 자신이 작성한 글 일때만 메뉴 노출
+	 *     2-4. 게시글 수정
+	 *     2-5. 게시글 삭제
+	 *     
+	 *     
+	 * 3. 게시글 작성(제목, 내용 INSERT) 
+	 * 	-> 작성 성공 시 상세 조회 수행
+	 * 
+	 * 4. 게시글 검색(제목, 내용, 제목+내용, 작성자)
+	 * 
+	 * board-query.xml 작성
+	 * comment-query.xml 작성
+	 * member-query.xml 작성
+	 * 
+	 * */
 
 
 

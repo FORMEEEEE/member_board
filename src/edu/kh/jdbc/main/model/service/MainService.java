@@ -58,6 +58,7 @@ public class MainService {
 	/** 회원가입 서비스
 	 * @param member 
 	 * @return result
+	 * @throws Exception
 	 */
 	public int signUp(Member member)throws Exception {
 		// 1. 커넥션 생성

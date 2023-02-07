@@ -69,6 +69,24 @@ public class Member {
 		this.memberGender = memberGender;
 	}
 
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+	public String getSecessionFlag() {
+		return secessionFlag;
+	}
+
+	public void setSecessionFlag(String secessionFlag) {
+		this.secessionFlag = secessionFlag;
+	}
+
+
+
 	
 	
 }

@@ -126,6 +126,12 @@ public class MainDAO {
 
 
 
+	/**
+	 * @param conn
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
 	public int signUp(Connection conn, Member member) throws Exception {
 		
 		int result = 0;
@@ -135,7 +141,7 @@ public class MainDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, member.getMemberGender());
+			pstmt.setString(1, member.getMemberId());
 			pstmt.setString(2, member.getMemberPw());
 			pstmt.setString(3, member.getMemberName());
 			pstmt.setString(4, member.getMemberGender());
