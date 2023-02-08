@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static edu.kh.jdbc.common.JDBCTemplate.*;
@@ -28,15 +30,37 @@ public class MemberDAO {
 		}
 	}
 
-	public Member selectAll(Connection conn) {
-	
+	public List<Member> selectAll(Connection conn)throws Exception {
+			
+		List<Member> memberList = new ArrayList<>();
+		
 		try {
-			String sql = "";
+			String sql = prop.getProperty("selectAll");
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+				while(rs.next()) {
+				String memberId = rs.getString("MEMBER_ID");
+				String memberNm = rs.getString("MEMBER_NM");
+				String memberGender = rs.getString("MEMBER_GENDER");
+				
+				
+				Member mem = new Member(memberId,memberNm,memberGender);
+				
+				
+				memberList.add(mem);
+				
+				
+				}
+			
 			
 		}finally {
-			
+			close(rs);
+			close(stmt);
 		}
-		return null;
+		return memberList;
 	}
 	
 
