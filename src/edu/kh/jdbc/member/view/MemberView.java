@@ -49,7 +49,7 @@ public class MemberView {
 				switch(input) {
 				case 1 : selectMyInfo(loginMember); break;
 				case 2 : selectAll(); break;
-				case 3 : break;
+				case 3 : updateMember(loginMember); break;
 				case 4 : break;
 				case 5 : break;
 				case 0 : return;
@@ -83,6 +83,7 @@ public class MemberView {
 			System.out.println();
 			
 			}
+	
 	public void selectAll() {	
 		
 		
@@ -109,4 +110,32 @@ public class MemberView {
 		
 	}
 		
+	public void updateMember(Member loginMember) {
+		
+		System.out.println("<내 정보 수정>");
+		
+		System.out.print("정보 수정을 위해 비밀번호 입력 : ");
+		String memberPw2 = sc.next();
+		
+		if(memberPw2.equals(loginMember.getMemberPw())) {
+			System.out.print("변경할 이름 입력 : ");
+			String updateName = sc.next();
+			loginMember.setMemberPw(updateName);
+			
+			System.out.print("변경할 성별 입력 : ");
+			String updateGender = sc.next();
+			loginMember.setMemberGender(updateGender);
+			
+			System.out.println(loginMember.getMemberName() + "의 정보가 변경됨");
+			
+		}else {
+			System.out.println("비밀번호를 재입력");
+		}
+		
+		
+		
+		
+		
+	}
+	
 }
